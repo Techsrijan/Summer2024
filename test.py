@@ -1,0 +1,1 @@
+print("Dekho iska conntent tumhare computer mein aa jayega")
