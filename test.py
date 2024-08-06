@@ -1,1 +1,1 @@
-print("Dekho iska conntent tumhare computer mein aa jayega")
+print("Dekho iska c +onntent tumhare computer mein aa jayega")
