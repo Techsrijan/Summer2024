@@ -1,0 +1,1 @@
+print("share with group2")
