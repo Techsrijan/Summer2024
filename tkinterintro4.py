@@ -14,7 +14,7 @@ lbl=Label(root,text="Enter First no",fg="red",bg="yellow",
              font=("Comic sans Ms",15,"bold"))
 lbl.place(x=100,y=50)
 a=IntVar()
-txt=Entry(root, font=("Comic sans Ms",15,"bold"),textvariable=a,bd=10,show="*",justify="right")
+txt=Entry(root, font=("Comic sans Ms",15,"bold"),textvariable=a,bd=10,justify="right")
 txt.place(x=350,y=50)
 
 lbl1=Label(root,text="Enter Second no",fg="red",bg="yellow",
