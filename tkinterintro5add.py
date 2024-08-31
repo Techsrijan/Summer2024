@@ -47,6 +47,6 @@ k=StringVar()
 ent1=Entry(root,font=("Comic Sans Ms",10,"bold"),textvariable=k)
 ent1.place(x=200,y=400)
 
-root.geometry("500x600+200+200")
+root.geometry("600x600+200+200")
 root.resizable(0,0)
 root.mainloop()
