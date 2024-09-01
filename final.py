@@ -24,3 +24,4 @@ setup(name='Techsrijan Calulator Test Installer',
       options={'build_exe': {'include_files': include_files}},
       executables=executables)
 
+ 
