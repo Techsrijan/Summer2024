@@ -14,8 +14,8 @@ if sys.platform == 'win32':
     base = 'Win32GUI'
 
 executables = [Executable('Calculator.py', base=base,icon=r"C:\Users\Ashwani\Desktop\newinstaller\calci.ico",
-                   shortcutName="Techsrijan Calci",
-                   shortcutDir="DesktopFolder")]
+                   shortcut_name="Techsrijan Calci",
+                   shortcut_dir="DesktopFolder")]
 
 setup(name='Techsrijan Calulator Test Installer',
       version='0.1',
