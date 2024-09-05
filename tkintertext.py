@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog,colorchooser
 root=Tk()
 
 def get_data():
@@ -15,7 +16,17 @@ def delete_data():
 def clear_data():
     txt.delete(1.0, END)
 
+def color_bkchange():
+    x=colorchooser.askcolor(title="Select Background color")
+    print(x[0])
+    print(x[1])
+    txt.config(background=x[1])
 
+def color_forechange():
+    x=colorchooser.askcolor(title="Select foreground color")
+    print(x[0])
+    print(x[1])
+    txt.config(foreground=x[1])
 main_menu=Menu(root)
 root.config(menu=main_menu)
 
@@ -33,7 +44,11 @@ edit_menu=Menu(main_menu,tearoff=False)
 main_menu.add_cascade(label="Edit",menu=edit_menu)
 edit_menu.add_command(label="Cut",accelerator="Ctrl+c")
 
-
+#creating colorchooser menu
+color_menu=Menu(main_menu,tearoff=False)
+main_menu.add_cascade(label="Change Color",menu=color_menu)
+color_menu.add_command(label="Change BackGround Color",command=color_bkchange,accelerator="Ctrl+c")
+color_menu.add_command(label="Change ForeGround Color",command=color_forechange,accelerator="Ctrl+c")
 
 txt=Text(root,width=15,wrap=WORD,padx=10,pady=10,selectbackground='red')
 #txt.pack(fill=BOTH,expand=1)
