@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Summer2024.iml" filepath="$PROJECT_DIR$/.idea/Summer2024.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../batch22023/.idea/batch22023.iml" filepath="$PROJECT_DIR$/../batch22023/.idea/batch22023.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../buddha/.idea/buddha.iml" filepath="$PROJECT_DIR$/../buddha/.idea/buddha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../kushinagar/.idea/kushinagar.iml" filepath="$PROJECT_DIR$/../kushinagar/.idea/kushinagar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mmitkushinagar/.idea/mmitkushinagar.iml" filepath="$PROJECT_DIR$/../mmitkushinagar/.idea/mmitkushinagar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../techpython/.idea/techpython.iml" filepath="$PROJECT_DIR$/../techpython/.idea/techpython.iml" />
+    </modules>
+  </component>
+</project>
