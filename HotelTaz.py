@@ -1,10 +1,34 @@
 from tkinter import *
 from tkinter import messagebox
 import pymysql
+from tkinter import ttk
+from PIL import Image, ImageTk
 taz=Tk()
 taz.title("My Hotel")
 h=taz.winfo_screenheight()
 w=taz.winfo_screenwidth()
+#-----------images
+user=ImageTk.PhotoImage(Image.open('images/user.png'))
+login=ImageTk.PhotoImage(Image.open('images/login.png'))
+############# validation ######################
+def only_numeric_input(P):
+    # checks if entry's value is an integer or empty and returns an appropriate boolean
+    if P.isdigit() or P == "":  # if a digit was entered or nothing was entered
+        return True
+    return False
+
+def only_char_input(P):
+    # checks if entry's value is an integer or empty and returns an appropriate boolean
+    if P.isalpha() or P.isspace() or P == "":  # if a digit was entered or nothing was entered
+        return True
+    return False
+
+
+
+callback = taz.register(only_char_input)  # registers a Tcl to Python callback
+callback1 = taz.register(only_numeric_input)  # registers a Tcl t
+# ========mainTreeView======================
+tazTV = ttk.Treeview(height=10, columns=('Item Name''Rate','Type'))
 ###### database connectivity##################################
 def dbconnect():
     global con,mycursor
@@ -24,6 +48,24 @@ def main_heading():
                  bg="red", fg="black", font=("Comic Sans Ms", "40", "bold"))
      lab.grid(row=0, column=0,columnspan=6)
 
+### get item in tree view
+
+def getIteminTreeView():
+    # to delete already inserted item
+    records = tazTV.get_children()
+
+    for element in records:
+        tazTV.delete(element)
+    conn = pymysql.connect(host="localhost", user="root", db="merahotel")
+    mycursor = conn.cursor(pymysql.cursors.DictCursor)
+    query = "select * from itemlist"
+    mycursor.execute(query)
+    data = mycursor.fetchall()
+    #print(data)
+    for row in data:
+        tazTV.insert('', 'end', text=row['item_name'], values=(row["item_rate"],
+                                                               row["item_type"]))
+    conn.close()
 
 #---billgenerationwindow------
 def billgenerationwindow():
@@ -60,6 +102,18 @@ def addItem():
         itemnameVar.set('')
         itemrateVar.set('')
         itemTypeVar.set('')
+        getIteminTreeView()
+### get item on  OnDoubleClick
+
+def  OnDoubleClick(event):
+    item = tazTV.selection()
+    itemNameVar1 = tazTV.item(item, "text")
+    item_detail = tazTV.item(item, "values")
+    print(itemNameVar1)
+    print(item_detail)
+    itemnameVar.set(itemNameVar1)
+    itemrateVar.set(item_detail[0])
+    itemTypeVar.set(item_detail[1])
 # --- delete item--
 def deleteItem():
     pass
@@ -95,11 +149,11 @@ def additemwindow():
 
     itemnameEntry = Entry(taz, textvariable=itemnameVar)
     itemnameEntry.grid(row=2, column=2, padx=20, pady=5)
-    #itemnameEntry.configure(validate="key", validatecommand=(callback, "%P"))  # enables validation
+    itemnameEntry.configure(validate="key", validatecommand=(callback, "%P"))  # enables validation
 
     itemrateEntry = Entry(taz, textvariable=itemrateVar)
     itemrateEntry.grid(row=3, column=2, padx=20, pady=5)
-    #itemrateEntry.configure(validate="key", validatecommand=(callback1, "%P"))  # enables validation
+    itemrateEntry.configure(validate="key", validatecommand=(callback1, "%P"))  # enables validation
 
     itemTypeEntry = Entry(taz, textvariable=itemTypeVar)
     itemTypeEntry.grid(row=4, column=2, padx=20, pady=5)
@@ -112,6 +166,22 @@ def additemwindow():
 
     deleteButton = Button(taz, text="Delete Item", width=20, height=2, fg="green", bd=10, command=deleteItem)
     deleteButton.grid(row=6, column=3)
+
+
+    ################# to display treeview ##############################
+    tazTV.grid(row=7, column=0, columnspan=3,pady=10)
+
+
+    scrollBar = Scrollbar(taz, orient="vertical", command=tazTV.yview)
+    scrollBar.grid(row=7, column=0, columnspan=3,sticky="NSE")
+    tazTV.configure(yscrollcommand=scrollBar.set)
+
+    tazTV.heading('#0', text="Name Of Item")
+    tazTV.heading('#1', text="Rate")
+    tazTV.heading('#2', text="Type")
+
+    getIteminTreeView()
+    tazTV.bind("<Double-1>", OnDoubleClick)
 #----password change -----------
 def password_change():
     a=usernameVar1.get()
@@ -214,7 +284,7 @@ usernameVar=StringVar()
 passwordVar=StringVar()
 def admin_login():
     main_heading()
-    loginLabel = Label(taz, text="Admin Login", font="Arial 20")
+    loginLabel = Label(taz, text="Admin Login",image=user,compound=LEFT, font="Arial 20")
     loginLabel.grid(row=1, column=1, padx=(50, 0), columnspan=2, pady=10)
 
     usernameLabel = Label(taz, text="Username", font="Arial 15")
